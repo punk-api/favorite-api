@@ -19,39 +19,42 @@ provider:
         - ""
         - - !GetAtt FavoritesTable.Arn
           - "*"
-# package:
-#   exclude:
-#     - node_modules/**
+package:
+  individually: true
 
 functions:
   getAllFavorites:
-    handler: src/handlers.getAll
+    handler: src/favorites.getAll
     events:
       - http: 
           method: GET 
           path: /{username}
           cors: true
   createFavorite:
-    handler: src/handlers.create
+    handler: src/favorites.create
     events:
       - http: 
           method: POST 
           path: /{username}/{id}
           cors: true
   removeFavorite:
-    handler: src/handlers.remove
+    handler: src/favorites.remove
     events:
       - http: 
           method: DELETE 
           path: /{username}/{id}
           cors: true
+
   getRecommendations:
-    handler: src/handlers.getRecommendations
+    handler: src/recommendation.getRecommendations
     events:
       - http: 
           method: GET 
           path: /recommendations/{username}
           cors: true
+    package:
+      include:
+        - all-items.json
           
 custom:
   serverless-offline:
