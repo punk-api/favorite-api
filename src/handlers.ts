@@ -11,7 +11,10 @@ export async function getAll(
   context: AWSLambda.Context
 ): Promise<AWSLambda.APIGatewayProxyResult> {
   return catchError(async () => {
-    return success(await getAllFavorites());
+    if (!event.pathParameters?.username) {
+      return error("Specify username", 403);
+    }
+    return success(await getAllFavorites(event.pathParameters.username));
   });
 }
 
@@ -20,10 +23,16 @@ export async function create(
   context: AWSLambda.Context
 ): Promise<AWSLambda.APIGatewayProxyResult> {
   return catchError(async () => {
+    if (!event.pathParameters?.username) {
+      return error("Specify username", 403);
+    }
     if (!event.pathParameters?.id) {
       return error("Specify id", 400);
     }
-    await createFavorite(event.pathParameters.id);
+    await createFavorite(
+      event.pathParameters.username,
+      event.pathParameters.id
+    );
     return success(null, 201);
   });
 }
@@ -33,10 +42,16 @@ export async function remove(
   context: AWSLambda.Context
 ): Promise<AWSLambda.APIGatewayProxyResult> {
   return catchError(async () => {
+    if (!event.pathParameters?.username) {
+      return error("Specify username", 403);
+    }
     if (!event.pathParameters?.id) {
       return error("Specify id", 400);
     }
-    await deleteFavorite(event.pathParameters.id);
+    await deleteFavorite(
+      event.pathParameters.username,
+      event.pathParameters.id
+    );
     return success();
   });
 }

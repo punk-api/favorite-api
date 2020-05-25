@@ -29,21 +29,21 @@ functions:
     events:
       - http: 
           method: GET 
-          path: /
+          path: /{username}
           cors: true
   createFavorite:
     handler: src/handlers.create
     events:
       - http: 
           method: POST 
-          path: /{id}
+          path: /{username}/{id}
           cors: true
   removeFavorite:
     handler: src/handlers.remove
     events:
       - http: 
           method: DELETE 
-          path: /{id}
+          path: /{username}/{id}
           cors: true
           
 custom:
@@ -73,7 +73,11 @@ resources:
         AttributeDefinitions:
           - AttributeName: pk
             AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
         KeySchema:
           - AttributeName: pk
             KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
