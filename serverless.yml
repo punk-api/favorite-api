@@ -1,0 +1,23 @@
+service: punkapi-api
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  endpointType: REGIONAL
+package:
+  exclude:
+    - node_modules/**
+
+functions:
+  hello:
+    handler: hello.handler
+    events:
+      - http: GET /
+          
+custom:
+  serverless-offline:
+   port: 4000
