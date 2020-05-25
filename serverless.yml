@@ -2,7 +2,8 @@ service: punkapi-api
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
-
+  - serverless-domain-manager
+ 
 provider:
   name: aws
   runtime: nodejs12.x
@@ -21,3 +22,8 @@ functions:
 custom:
   serverless-offline:
    port: 4000
+  customDomain:
+    domainName: "favorite.api.punk-beers.xyz"
+    certificateName: "*.api.punk-beers.xyz"
+    createRoute53Record: true
+    endpointType: "regional"

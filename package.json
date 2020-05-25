@@ -6,7 +6,8 @@
   "main": "",
   "scripts": {
     "start": "serverless offline start",
-    "debug-serverless": "rimraf .build && SLS_DEBUG=* npm start"
+    "debug-serverless": "rimraf .build && SLS_DEBUG=* npm start",
+    "deploy": "serverless create_domain && serverless deploy"
   },
   "author": "larrybolt",
   "license": "ISC",
