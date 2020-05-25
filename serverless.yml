@@ -27,15 +27,24 @@ functions:
   getAllFavorites:
     handler: src/handlers.getAll
     events:
-      - http: GET /
+      - http: 
+          method: GET 
+          path: /
+          cors: true
   createFavorite:
     handler: src/handlers.create
     events:
-      - http: POST /{id}
+      - http: 
+          method: POST 
+          path: /{id}
+          cors: true
   removeFavorite:
     handler: src/handlers.remove
     events:
-      - http: DELETE /{id}
+      - http: 
+          method: DELETE 
+          path: /{id}
+          cors: true
           
 custom:
   serverless-offline:
