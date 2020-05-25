@@ -1,6 +1,8 @@
 service: punkapi-api
 plugins:
+  - serverless-dotenv-plugin
   - serverless-plugin-typescript
+  - serverless-dynamodb-local
   - serverless-offline
   - serverless-domain-manager
  
@@ -39,10 +41,19 @@ custom:
   serverless-offline:
    port: 4000
   customDomain:
-    domainName: "favorite.api.punk-beers.xyz"
-    certificateName: "*.api.punk-beers.xyz"
+    domainName: "favorite.${env:DOMAIN}"
+    certificateName: "*.${env:DOMAIN}"
     createRoute53Record: true
     endpointType: "regional"
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8800
+      inMemory: true
+      migrate: true
+      seed: true
+      convertEmptyValues: true
 
 resources:
   Resources:
