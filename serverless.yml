@@ -25,15 +25,15 @@ package:
 
 functions:
   getAllFavorites:
-    handler: handlers.getAll
+    handler: src/handlers.getAll
     events:
       - http: GET /
   createFavorite:
-    handler: handlers.create
+    handler: src/handlers.create
     events:
       - http: POST /{id}
   removeFavorite:
-    handler: handlers.remove
+    handler: src/handlers.remove
     events:
       - http: DELETE /{id}
           
