@@ -35,6 +35,8 @@ export async function catchError(
   try {
     return await handler();
   } catch (e) {
+    console.error(e);
+    console.trace();
     return error("Unexpected error", 500);
   }
 }

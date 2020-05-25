@@ -1,8 +1,10 @@
 import {
-  getAllFavorites,
   createFavorite,
   deleteFavorite,
+  getAllFavoritesForUser,
+  getAllFavoritesByUser,
 } from "./ddb-favorites";
+import { calculate } from "./recommendation";
 
 import { catchError, success, error } from "./lambda-helpers";
 
@@ -14,7 +16,7 @@ export async function getAll(
     if (!event.pathParameters?.username) {
       return error("Specify username", 403);
     }
-    return success(await getAllFavorites(event.pathParameters.username));
+    return success(await getAllFavoritesForUser(event.pathParameters.username));
   });
 }
 
@@ -53,5 +55,17 @@ export async function remove(
       event.pathParameters.id
     );
     return success();
+  });
+}
+
+export async function getRecommendations(
+  event: AWSLambda.APIGatewayEvent,
+  context: AWSLambda.Context
+): Promise<AWSLambda.APIGatewayProxyResult> {
+  return catchError(async () => {
+    if (!event.pathParameters?.username) {
+      return error("Specify username", 403);
+    }
+    return success(calculate(await getAllFavoritesByUser(), event.pathParameters.username));
   });
 }

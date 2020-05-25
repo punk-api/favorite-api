@@ -19,9 +19,9 @@ provider:
         - ""
         - - !GetAtt FavoritesTable.Arn
           - "*"
-package:
-  exclude:
-    - node_modules/**
+# package:
+#   exclude:
+#     - node_modules/**
 
 functions:
   getAllFavorites:
@@ -44,6 +44,13 @@ functions:
       - http: 
           method: DELETE 
           path: /{username}/{id}
+          cors: true
+  getRecommendations:
+    handler: src/handlers.getRecommendations
+    events:
+      - http: 
+          method: GET 
+          path: /recommendations/{username}
           cors: true
           
 custom:
