@@ -52,9 +52,14 @@ functions:
           method: GET 
           path: /recommendations/{username}
           cors: true
-    package:
-      include:
-        - all-items.json
+
+  getMostPopular:
+    handler: src/recommendation.getMostPopular
+    events:
+      - http: 
+          method: GET 
+          path: /popular
+          cors: true
           
 custom:
   serverless-offline:
