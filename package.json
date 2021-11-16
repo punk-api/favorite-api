@@ -18,7 +18,7 @@
     "@types/lodash.mapvalues": "^4.6.6",
     "@types/lodash.orderby": "^4.6.6",
     "@types/node": "^13.9.2",
-    "aws-sdk": "^2.642.0",
+    "aws-sdk": "^2.814.0",
     "serverless": "^1.67.3",
     "serverless-domain-manager": "^4.1.1",
     "serverless-dotenv-plugin": "^2.4.2",
